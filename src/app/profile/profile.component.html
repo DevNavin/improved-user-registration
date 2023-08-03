@@ -1,0 +1,31 @@
+
+<mat-card class="mat-elevation-z8 mt-2 matcard" fxLayout="row wrap" fxLayoutGap="16px grid" fxFlex="99%" fxLayoutGap="15px">
+  <div class="wrapper center" *ngIf="isLoading">
+    <div class="inner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Profile</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <header class="jumbotron">
+    <h3>
+      <strong>{{ currentUser.name }}</strong> Profile
+    </h3>
+  </header>
+  <p>
+    <strong>Email:</strong>
+    {{ currentUser.email }}
+  </p>
+  <strong>Bio:</strong>
+  {{ currentUser.bio }}
+</div>
+<ng-template #loggedOut> Please register. </ng-template>
+<br /><br />
+<p class="test" *ngIf="!tokens">{{ showMsg.login }}</p>
+</mat-card>
+

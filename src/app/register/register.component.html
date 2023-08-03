@@ -1,0 +1,140 @@
+<div class="wrapper center" *ngIf="isLoading">
+  <div class="inner">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+</div>
+
+<mat-card class="matcard">
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Registration</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+</mat-card>
+<div class="col-md-12">
+  <div class="card card-container">
+    <img
+      id="profile-img"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="profile-img-card"
+    />
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div fxLayout="row wrap" fxLayoutGap="15px grid">
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            name="name"
+            [(ngModel)]="form.name"
+            required
+            minlength="3"
+            maxlength="20"
+            #name="ngModel"
+          />
+          <mat-error class="alert-danger" *ngIf="name.errors && f.submitted">
+            <mat-error *ngIf="name.errors['required']"
+              >Name is required</mat-error
+            >
+            <mat-error *ngIf="name.errors['minlength']">
+              name must be at least 3 characters
+            </mat-error>
+            <mat-error *ngIf="name.errors['maxlength']">
+              name must be at most 20 characters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <!--  -->
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>Email ID</mat-label>
+          <input
+            matInput
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            email
+            #email="ngModel"
+          />
+          <mat-error class="alert-danger" *ngIf="email.errors && f.submitted">
+            <mat-error *ngIf="email.errors['required']"
+              >Email is required</mat-error
+            >
+            <mat-error *ngIf="email.errors['email']">
+              Email must be a valid email address
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="Password"
+            [type]="hide ? 'password' : 'text'"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="6"
+            #password="ngModel"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error
+            class="alert-danger"
+            *ngIf="password.errors && f.submitted"
+          >
+            <mat-error *ngIf="password.errors['required']"
+              >Password is required</mat-error
+            >
+            <mat-error *ngIf="password.errors['minlength']">
+              Password must be at least 6 characters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>Bio</mat-label>
+          <textarea
+            matInput
+            name="bio"
+            [(ngModel)]="form.bio"
+            required
+            minlength="10"
+            #bio="ngModel"
+          ></textarea>
+          <mat-error class="alert-danger" *ngIf="bio.errors && f.submitted">
+            <mat-error *ngIf="bio.errors['required']"
+              >bio is required</mat-error
+            >
+            <mat-error *ngIf="bio.errors['minlength']">
+              bio must be at least 10 characters
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <button mat-raised-button color="primary" class="btn-block" type="submit" (click)="onSubmit()" [disabled]="!f.form.valid"
+      >Sign Up</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Your registration is successful!
+    </div>
+  </div>
+</div>

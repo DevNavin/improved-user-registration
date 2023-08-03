@@ -1,0 +1,21 @@
+<mat-card class="matcard">
+
+<div>
+  <main>
+    <header>
+      <h1>Welcome</h1>
+    </header>
+  </main>
+</div>
+
+<div>
+  <p *ngIf="tokens; else prompt">
+    {{ showMsg.not_login }}
+  </p>
+  <ng-template #prompt>
+    <p>{{ showMsg.login }}</p>
+  </ng-template>
+</div>
+
+
+</mat-card>
